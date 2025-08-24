@@ -53,7 +53,7 @@
     padding:10px 12px; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; }
   .value{ font-size:20px; font-weight:800; letter-spacing:.2px; }
   .label{ font-size:12px; color:var(--muted); font-weight:700; }
-  .sub{ font-size:12px; color:var(--muted); }
+  .sub{ font-size:12px; color:#6b7280; }
   .big{ font-size:22px; }
   .row{ display:flex; align-items:center; gap:8px; }
   .weather-icon{ width:26px; height:26px; opacity:.9 }
@@ -148,25 +148,10 @@
       <div class="label">Weather</div>
     </div>
 
-    <div class="card">
-      <div class="value" id="clouds">—</div>
-      <div class="label">Cloud cover</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="visibility">—</div>
-      <div class="label">Visibility</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="wind">—</div>
-      <div class="label">Wind</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="gust">—</div>
-      <div class="label">Gust (hour)</div>
-    </div>
+    <div class="card"><div class="value" id="clouds">—</div><div class="label">Cloud cover</div></div>
+    <div class="card"><div class="value" id="visibility">—</div><div class="label">Visibility</div></div>
+    <div class="card"><div class="value" id="wind">—</div><div class="label">Wind</div></div>
+    <div class="card"><div class="value" id="gust">—</div><div class="label">Gust (hour)</div></div>
 
     <div class="card">
       <div class="compass">
@@ -179,41 +164,13 @@
       <div class="label">Wind direction</div>
     </div>
 
-    <div class="card">
-      <div class="value" id="precip">—</div>
-      <div class="label">Precipitation</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="pop">—</div>
-      <div class="label">Precip probability</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="feels">—</div>
-      <div class="label">Feels like</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="humidity">—</div>
-      <div class="label">Humidity</div>
-    </div>
-
-    <div class="card">
-      <div class="sub">Sunrise / Sunset</div>
-      <div class="value" id="sunTimes">—</div>
-      <div class="label">Sun</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="uv">—</div>
-      <div class="label">UV index</div>
-    </div>
-
-    <div class="card">
-      <div class="value" id="pressure">—</div>
-      <div class="label">Pressure</div>
-    </div>
+    <div class="card"><div class="value" id="precip">—</div><div class="label">Precipitation</div></div>
+    <div class="card"><div class="value" id="pop">—</div><div class="label">Precip probability</div></div>
+    <div class="card"><div class="value" id="feels">—</div><div class="label">Feels like</div></div>
+    <div class="card"><div class="value" id="humidity">—</div><div class="label">Humidity</div></div>
+    <div class="card"><div class="sub">Sunrise / Sunset</div><div class="value" id="sunTimes">—</div><div class="label">Sun</div></div>
+    <div class="card"><div class="value" id="uv">—</div><div class="label">UV index</div></div>
+    <div class="card"><div class="value" id="pressure">—</div><div class="label">Pressure</div></div>
   </div>
 
   <div class="note">Data: Open-Meteo • No API key needed.</div>
@@ -237,6 +194,39 @@
     hourIndex: new Date().getHours()
   };
 
+  // --- Weather helpers (icons + text) ---
+  function weatherDesc(code){
+    const map = {0:"Clear",1:"Mainly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Depositing rime fog",
+      51:"Drizzle light",53:"Drizzle",55:"Drizzle heavy",61:"Rain light",63:"Rain",65:"Rain heavy",
+      71:"Snow light",73:"Snow",75:"Snow heavy",80:"Rain showers",81:"Rain showers",82:"Violent showers",
+      95:"Thunderstorm",96:"Thunderstorm hail",99:"Thunderstorm heavy hail"}; return map[code] ?? "—";
+  }
+  function weatherSVG(code){
+    const sun = `<circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2" fill="none"/>
+      <g stroke="currentColor" stroke-width="2">
+      <line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/>
+      <line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/>
+      <line x1="4.2" y1="4.2" x2="6.6" y2="6.6"/><line x1="17.4" y1="17.4" x2="19.8" y2="19.8"/>
+      <line x1="17.4" y1="6.6" x2="19.8" y2="4.2"/><line x1="4.2" y1="19.8" x2="6.6" y2="17.4"/></g>`;
+    const cloud = `<path d="M6 18h10a4 4 0 0 0 0-8 6 6 0 0 0-11.7 1" fill="none" stroke="currentColor" stroke-width="2"/>`;
+    const rain = `${cloud}<path d="M8 20l-1 3M12 20l-1 3M16 20l-1 3" stroke="currentColor" stroke-width="2"/>`;
+    const thunder = `${cloud}<path d="M11 13l-2 4h3l-2 4" stroke="currentColor" stroke-width="2" fill="none"/>`;
+    const snow = `${cloud}<g stroke="currentColor" stroke-width="2"><path d="M8 21l2-2M10 21l-2-2M12 21l2-2M14 21l-2-2"/></g>`;
+    const fog = `<path d="M4 10h16M3 14h18M4 18h16" stroke="currentColor" stroke-width="2"/>`;
+    const overcast = cloud + cloud.replace('d="M6','d="M5').replace('a 4 4','a 5 5');
+    if ([0,1].includes(code)) return sun;
+    if ([2].includes(code)) return sun + cloud;
+    if ([3].includes(code)) return overcast;
+    if ([45,48].includes(code)) return fog;
+    if ([51,53,55,61,63,65,80,81,82].includes(code)) return rain;
+    if ([71,73,75].includes(code)) return snow;
+    if ([95,96,99].includes(code)) return thunder;
+    return sun; // fallback
+  }
+  // expose for safety
+  window.weatherDesc = weatherDesc;
+  window.weatherSVG = weatherSVG;
+
   // Load saved settings
   try{
     const u = JSON.parse(localStorage.getItem(LS_KEYS.units)||"null"); if(u) state.units=u;
@@ -247,7 +237,6 @@
 
   document.documentElement.setAttribute("data-theme", state.theme);
   [...document.querySelectorAll('#themeSeg button')].forEach(b=>{ if(b.dataset.theme===state.theme) b.classList.add('active'); });
-  // Apply current unit buttons
   [...document.querySelectorAll('#speedSeg button')].forEach(b=>{ if(b.dataset.speed===state.units.speed) b.classList.add('active'); });
   [...document.querySelectorAll('#tempSeg button')].forEach(b=>{ if(b.dataset.temp===state.units.temp) b.classList.add('active'); });
 
@@ -255,13 +244,13 @@
   document.querySelectorAll('#speedSeg button').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#speedSeg button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active'); state.units.speed = b.dataset.speed; saveUnits(); render();
+      b.classList.add('active'); state.units.speed = b.dataset.speed; localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
     };
   });
   document.querySelectorAll('#tempSeg button').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#tempSeg button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active'); state.units.temp = b.dataset.temp; saveUnits(); render();
+      b.classList.add('active'); state.units.temp = b.dataset.temp; localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
     };
   });
 
@@ -295,7 +284,6 @@
     state.place = p; $("#loc").textContent = p.name; updateWindyLink();
     localStorage.setItem(LS_KEYS.place, JSON.stringify(p));
   }
-  function saveUnits(){ localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); }
   function saveDayHour(){
     localStorage.setItem(LS_KEYS.day, String(state.dayIndex));
     localStorage.setItem(LS_KEYS.hour, String(state.hourIndex));
@@ -321,8 +309,9 @@
   }
   async function reverseLookup(lat, lon){
     const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=en&format=json`;
-    const r = await fetch(url); const j = await r.json();
-    const p = (j.results||[])[0]; return p ? `${p.name}, ${p.country}` : null;
+    // If reverse lookup fails (e.g., transient CORS), don't crash
+    try { const r = await fetch(url); const j = await r.json(); const p = (j.results||[])[0]; return p ? `${p.name}, ${p.country}` : null; }
+    catch { return null; }
   }
   async function searchAndLoad(q){
     if(!q){ note("Type a place."); return; }
@@ -352,7 +341,6 @@
     try{
       const r = await fetch(url); state.data = await r.json();
       buildDays();
-      // Clamp restored day/hour to available range
       state.dayIndex = Math.max(0, Math.min(state.dayIndex, state.data.daily.time.length-1));
       state.hourIndex = Math.max(0, Math.min(state.hourIndex, 23));
       buildHourBar(); render();
@@ -379,19 +367,13 @@
     for(let h=0; h<24; h++){
       const b = document.createElement("button");
       b.className = "time" + (h===state.hourIndex ? " active":""); b.textContent = String(h).padStart(2,"0");
-      // haptics + long-press
+      // haptics + long-press jump-to-now
       let longTimer=null, pressed=false;
       const vibrate = (ms)=>{ try{ if('vibrate' in navigator) navigator.vibrate(ms); }catch{} };
-      b.addEventListener('click', ()=>{
-        if(!pressed){ // if it wasn't a long-press
-          selectHour(h); vibrate(10);
-        }
-        pressed=false;
-      });
+      b.addEventListener('click', ()=>{ if(!pressed){ selectHour(h); vibrate(10); } pressed=false; });
       b.addEventListener('pointerdown', ()=>{ pressed=false; longTimer=setTimeout(()=>{ pressed=true; jumpToNow(); vibrate(30); }, 550); });
       const clearLP = ()=>{ if(longTimer){ clearTimeout(longTimer); longTimer=null; } };
       b.addEventListener('pointerup', clearLP); b.addEventListener('pointercancel', clearLP); b.addEventListener('pointerleave', clearLP);
-
       timebar.appendChild(b);
     }
     const active = timebar.querySelector(".time.active");
@@ -404,9 +386,12 @@
   function jumpToNow(){ if(state.dayIndex!==0){ selectDay(0); } selectHour(new Date().getHours()); }
 
   function hourBaseIndexForDay(i){
-    const d = state.data; const midnight = new Date(d.daily.time[i] + "T00:00:00");
-    const idx = d.hourly.time.findIndex(t => new Date(t).getTime() === midnight.getTime());
-    return (idx >= 0) ? idx : i*24;
+    const d = state.data;
+    const dayStart = new Date(d.daily.time[i] + "T00:00:00");
+    const nextDayStart = new Date(dayStart.getTime() + 24*3600*1000);
+    let idx = d.hourly.time.findIndex(t => { const tt = new Date(t); return tt >= dayStart && tt < nextDayStart; });
+    if (idx < 0) idx = i*24;
+    return idx;
   }
 
   function render(){
@@ -420,8 +405,8 @@
     const km = v => v/1000;
 
     const wcode = d.daily.weathercode[day];
-    $("#weatherDesc").textContent = weatherDesc(wcode);
-    $("#weatherIcon").innerHTML = weatherSVG(wcode);
+    $("#weatherDesc").textContent = (window.weatherDesc ? window.weatherDesc(wcode) : "—");
+    $("#weatherIcon").innerHTML = (window.weatherSVG ? window.weatherSVG(wcode) : "");
     $("#temp").textContent = fmt(toTemp(d.hourly.temperature_2m[H]),0) + "°";
     $("#clouds").textContent = fmt(d.hourly.cloud_cover[H],0) + "%";
 
@@ -437,31 +422,24 @@
 
     $("#precip").textContent = fmt(d.daily.precipitation_sum[day],1) + " mm";
     const pp = d.hourly.precipitation_probability?.[H];
-    $("#pop").textContent = (pp==null? "—" : Math.round(pp) + "%");
+    $("#pop").textContent = (pp==null? "—" : Math.round(pp) + "%";
 
     $("#feels").textContent = fmt(toTemp(d.hourly.apparent_temperature[H]),0) + "°";
     $("#humidity").textContent = fmt(d.hourly.relative_humidity_2m[H],0) + "%";
     const sr = new Date(d.daily.sunrise[day]); const ss = new Date(d.daily.sunset[day]);
     $("#sunTimes").textContent = timeStr(sr) + "  /  " + timeStr(ss);
     $("#uv").textContent = fmt(d.daily.uv_index_max[day],0);
-    $("#pressure").textContent = fmt(d.hourly.surface_pressure[H],0) + " hPa";
+    $("#pressure").textContent = fmt(d.hourly.surface_pressure[H]),0) + " hPa";
   }
 
   function timeStr(dt){ return dt.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}); }
   function bearing(deg){ if(deg==null) return ""; const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
     const ix = Math.round(((deg%360)+360)%360 / 22.5) % 16; return dirs[ix]; }
-  function weatherDesc(code){
-    const map = {0:"Clear",1:"Mainly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Depositing rime fog",
-      51:"Drizzle light",53:"Drizzle",55:"Drizzle heavy",61:"Rain light",63:"Rain",65:"Rain heavy",
-      71:"Snow light",73:"Snow",75:"Snow heavy",80:"Rain showers",81:"Rain showers",82:"Violent showers",
-      95:"Thunderstorm",96:"Thunderstorm hail",99:"Thunderstorm heavy hail"}; return map[code] ?? "—";
-  }
 
   // Swipe left/right on grid to change day
   (function enableSwipe(){
     let startX=0, startY=0, swiping=false;
     grid.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startX=t.clientX; startY=t.clientY; swiping=true; }, {passive:true});
-    grid.addEventListener('touchmove', (e)=>{ if(!swiping) return; }, {passive:true});
     grid.addEventListener('touchend', (e)=>{
       if(!swiping) return; swiping=false;
       const t=e.changedTouches[0]; const dx=t.clientX - startX; const dy=t.clientY - startY;
@@ -475,9 +453,9 @@
   // Kick off
   setPlace(state.place); updateWindyLink(); load();
 
-  // Register Service Worker (only works on https/localhost)
+  // Register Service Worker (https or localhost)
   if('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
-    navigator.serviceWorker.register('./sw.js').catch(()=>{ /* ignore */ });
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
 })();
 </script>
