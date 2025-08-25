@@ -280,22 +280,36 @@
   });
   // === END: UNIT + THEME TOGGLES ===
 
-  // === START: SEARCH + GPS ===
-  $("#go").onclick = ()=> searchAndLoad($("#q").value.trim());
-  $("#q").addEventListener('keydown', e=>{
-    if(e.key === 'Enter') $("#go").click();
-    if($("#q").value.length >= 2) suggest($("#q").value.trim());
-  });
-  $("#gps").onclick = ()=>{
-    if(!navigator.geolocation){ note("Geolocation not available."); return; }
-    navigator.geolocation.getCurrentPosition(async pos=>{
-      const {latitude:lat, longitude:lon} = pos.coords;
+// === START: SEARCH + GPS ===
+$("#go").onclick = ()=> searchAndLoad($("#q").value.trim());
+$("#q").addEventListener('keydown', e=>{
+  if(e.key === 'Enter') $("#go").click();
+  if($("#q").value.length >= 2) suggest($("#q").value.trim());
+});
+
+// GPS: set place immediately; do reverse lookup in the background (silent)
+$("#gps").onclick = ()=>{
+  if(!navigator.geolocation){ note("Geolocation not available."); return; }
+  navigator.geolocation.getCurrentPosition(pos=>{
+    const {latitude:lat, longitude:lon} = pos.coords;
+
+    // 1) set coords + load data right away (no waiting, no errors)
+    setPlace({name: "Current location", lat, lon});
+    load();
+
+    // 2) background name lookup; if it succeeds, update the label & persist
+    const idle = window.requestIdleCallback || ((fn)=>setTimeout(fn, 600));
+    idle(async ()=>{
       const name = await reverseLookup(lat, lon).catch(()=>null);
-      setPlace({name: name||"Current location", lat, lon});
-      load();
-    }, _err=> note("Location permission denied."));
-  };
-  // === END: SEARCH + GPS ===
+      if(name){
+        state.place.name = name;
+        document.querySelector("#loc").textContent = name;
+        localStorage.setItem(LS_KEYS.place, JSON.stringify(state.place));
+      }
+    });
+  }, _err=> note("Location permission denied."));
+};
+// === END: SEARCH + GPS ===
 
   function setPlace(p){
     state.place = p; $("#loc").textContent = p.name; updateWindyLink();
