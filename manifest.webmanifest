@@ -1,4 +1,5 @@
 {
+  "//": "=== START: WEB MANIFEST ===",
   "name": "Mobile Weather Dashboard",
   "short_name": "Weather",
   "start_url": "./index.html",
@@ -19,5 +20,6 @@
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "//_end": "=== END: WEB MANIFEST ==="
 }
