@@ -6,6 +6,8 @@
 <title>Mobile Weather Dashboard</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#0b5e9b">
+
+<!-- === START: STYLES === -->
 <style>
   :root{
     --bg:#0b5e9b; --bg2:#0a4e82; --card:#f4f5f7; --text:#0b1220; --muted:#6b7280;
@@ -88,97 +90,103 @@
   .toast.show{ opacity:1 }
   .svg{ width:22px; height:22px }
 </style>
+<!-- === END: STYLES === -->
 </head>
 <body>
 
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="search-row">
-      <div class="search">
-        <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
-          <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input id="q" list="place-list" placeholder="Search location…" autocomplete="off">
-        <datalist id="place-list"></datalist>
-      </div>
-      <button id="go" class="icon-btn" title="Search">
-        <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
-          <polyline points="22 2 11 13 9 15 9 9 3 3"/>
-        </svg>
-      </button>
-      <button id="gps" class="icon-btn" title="Use GPS">
-        <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
-          <circle cx="12" cy="12" r="3"/><path d="M19.4 15A8 8 0 1 1 15 4.6"/>
-        </svg>
-      </button>
-      <a id="windyBtn" class="icon-btn icon-link" title="Wind Map (Windy)" target="_blank" rel="noopener">
-        <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
-          <path d="M3 12c2-3 6-3 8 0s6 3 8 0"/><path d="M4 16c1.5-2 4.5-2 6 0s4.5 2 6 0"/>
-        </svg>
-      </a>
+<!-- === START: TOP BAR HTML === -->
+<div class="topbar">
+  <div class="search-row">
+    <div class="search">
+      <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input id="q" list="place-list" placeholder="Search location…" autocomplete="off">
+      <datalist id="place-list"></datalist>
     </div>
+    <button id="go" class="icon-btn" title="Search">
+      <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
+        <polyline points="22 2 11 13 9 15 9 9 3 3"/>
+      </svg>
+    </button>
+    <button id="gps" class="icon-btn" title="Use GPS">
+      <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/><path d="M19.4 15A8 8 0 1 1 15 4.6"/>
+      </svg>
+    </button>
+    <a id="windyBtn" class="icon-btn icon-link" title="Wind Map (Windy)" target="_blank" rel="noopener">
+      <svg class="svg" viewBox="0 0 24 24" fill="none" stroke="#0b5e9b" stroke-width="2">
+        <path d="M3 12c2-3 6-3 8 0s6 3 8 0"/><path d="M4 16c1.5-2 4.5-2 6 0s4.5 2 6 0"/>
+      </svg>
+    </a>
+  </div>
 
-    <div class="unit-row">
-      <div id="loc" style="font-weight:800">—</div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="seg" id="speedSeg">
-          <button data-speed="kph" class="active">km/h</button><button data-speed="mph">mph</button>
-        </div>
-        <div class="seg" id="tempSeg">
-          <button data-temp="c" class="active">°C</button><button data-temp="f">°F</button>
-        </div>
-        <div class="seg" id="themeSeg" title="Theme">
-          <button data-theme="light">☀︎</button><button data-theme="dark">🌙</button>
-        </div>
+  <div class="unit-row">
+    <div id="loc" style="font-weight:800">—</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="seg" id="speedSeg">
+        <button data-speed="kph" class="active">km/h</button><button data-speed="mph">mph</button>
+      </div>
+      <div class="seg" id="tempSeg">
+        <button data-temp="c" class="active">°C</button><button data-temp="f">°F</button>
+      </div>
+      <div class="seg" id="themeSeg" title="Theme">
+        <button data-theme="light">☀︎</button><button data-theme="dark">🌙</button>
       </div>
     </div>
   </div>
+</div>
+<!-- === END: TOP BAR HTML === -->
 
-  <!-- Day selector -->
-  <div class="days" id="days"></div>
+<!-- === START: DAY CHIPS === -->
+<div class="days" id="days"></div>
+<!-- === END: DAY CHIPS === -->
 
-  <!-- Cards -->
-  <div class="grid" id="grid">
-    <div class="card" id="c-weather">
-      <div class="row">
-        <svg class="weather-icon" id="weatherIcon" viewBox="0 0 24 24"></svg>
-        <div class="sub" id="weatherDesc">—</div>
-      </div>
-      <div class="value big" id="temp">—</div>
-      <div class="label">Weather</div>
+<!-- === START: GRID CARDS === -->
+<div class="grid" id="grid">
+  <div class="card" id="c-weather">
+    <div class="row">
+      <svg class="weather-icon" id="weatherIcon" viewBox="0 0 24 24"></svg>
+      <div class="sub" id="weatherDesc">—</div>
     </div>
-
-    <div class="card"><div class="value" id="clouds">—</div><div class="label">Cloud cover</div></div>
-    <div class="card"><div class="value" id="visibility">—</div><div class="label">Visibility</div></div>
-    <div class="card"><div class="value" id="wind">—</div><div class="label">Wind</div></div>
-    <div class="card"><div class="value" id="gust">—</div><div class="label">Gust (hour)</div></div>
-
-    <div class="card">
-      <div class="compass">
-        <div class="needle" id="needle" style="transform:rotate(0deg)"></div>
-        <div class="cap"></div>
-        <div class="cardinal N">N</div><div class="cardinal E">E</div>
-        <div class="cardinal S">S</div><div class="cardinal W">W</div>
-      </div>
-      <div class="sub" id="windDirTxt" style="text-align:center">—</div>
-      <div class="label">Wind direction</div>
-    </div>
-
-    <div class="card"><div class="value" id="precip">—</div><div class="label">Precipitation</div></div>
-    <div class="card"><div class="value" id="pop">—</div><div class="label">Precip probability</div></div>
-    <div class="card"><div class="value" id="feels">—</div><div class="label">Feels like</div></div>
-    <div class="card"><div class="value" id="humidity">—</div><div class="label">Humidity</div></div>
-    <div class="card"><div class="sub">Sunrise / Sunset</div><div class="value" id="sunTimes">—</div><div class="label">Sun</div></div>
-    <div class="card"><div class="value" id="uv">—</div><div class="label">UV index</div></div>
-    <div class="card"><div class="value" id="pressure">—</div><div class="label">Pressure</div></div>
+    <div class="value big" id="temp">—</div>
+    <div class="label">Weather</div>
   </div>
 
-  <div class="note">Data: Open-Meteo • No API key needed.</div>
+  <div class="card"><div class="value" id="clouds">—</div><div class="label">Cloud cover</div></div>
+  <div class="card"><div class="value" id="visibility">—</div><div class="label">Visibility</div></div>
+  <div class="card"><div class="value" id="wind">—</div><div class="label">Wind</div></div>
+  <div class="card"><div class="value" id="gust">—</div><div class="label">Gust (hour)</div></div>
 
-  <!-- Bottom hour selector -->
-  <div id="timebar" class="timebar" aria-label="Select hour"></div>
-  <div id="toast" class="toast"></div>
+  <div class="card">
+    <div class="compass">
+      <div class="needle" id="needle" style="transform:rotate(0deg)"></div>
+      <div class="cap"></div>
+      <div class="cardinal N">N</div><div class="cardinal E">E</div>
+      <div class="cardinal S">S</div><div class="cardinal W">W</div>
+    </div>
+    <div class="sub" id="windDirTxt" style="text-align:center">—</div>
+    <div class="label">Wind direction</div>
+  </div>
 
+  <div class="card"><div class="value" id="precip">—</div><div class="label">Precipitation</div></div>
+  <div class="card"><div class="value" id="pop">—</div><div class="label">Precip probability</div></div>
+  <div class="card"><div class="value" id="feels">—</div><div class="label">Feels like</div></div>
+  <div class="card"><div class="value" id="humidity">—</div><div class="label">Humidity</div></div>
+  <div class="card"><div class="sub">Sunrise / Sunset</div><div class="value" id="sunTimes">—</div><div class="label">Sun</div></div>
+  <div class="card"><div class="value" id="uv">—</div><div class="label">UV index</div></div>
+  <div class="card"><div class="value" id="pressure">—</div><div class="label">Pressure</div></div>
+</div>
+<!-- === END: GRID CARDS === -->
+
+<div class="note">Data: Open-Meteo • No API key needed.</div>
+
+<!-- === START: TIME BAR === -->
+<div id="timebar" class="timebar" aria-label="Select hour"></div>
+<div id="toast" class="toast"></div>
+<!-- === END: TIME BAR === -->
+
+<!-- === START: APP SCRIPT === -->
 <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -194,7 +202,7 @@
     hourIndex: new Date().getHours()
   };
 
-  // --- Weather helpers (icons + text) ---
+  // === START: WEATHER HELPERS ===
   function weatherDesc(code){
     const map = {0:"Clear",1:"Mainly clear",2:"Partly cloudy",3:"Overcast",45:"Fog",48:"Depositing rime fog",
       51:"Drizzle light",53:"Drizzle",55:"Drizzle heavy",61:"Rain light",63:"Rain",65:"Rain heavy",
@@ -223,9 +231,10 @@
     if ([95,96,99].includes(code)) return thunder;
     return sun; // fallback
   }
-  // expose for safety
+  // Expose globally
   window.weatherDesc = weatherDesc;
-  window.weatherSVG = weatherSVG;
+  window.weatherSVG  = weatherSVG;
+  // === END: WEATHER HELPERS ===
 
   // Load saved settings
   try{
@@ -240,21 +249,21 @@
   [...document.querySelectorAll('#speedSeg button')].forEach(b=>{ if(b.dataset.speed===state.units.speed) b.classList.add('active'); });
   [...document.querySelectorAll('#tempSeg button')].forEach(b=>{ if(b.dataset.temp===state.units.temp) b.classList.add('active'); });
 
-  // Unit toggles
+  // === START: UNIT + THEME TOGGLES ===
   document.querySelectorAll('#speedSeg button').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#speedSeg button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active'); state.units.speed = b.dataset.speed; localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
+      b.classList.add('active'); state.units.speed = b.dataset.speed;
+      localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
     };
   });
   document.querySelectorAll('#tempSeg button').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#tempSeg button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active'); state.units.temp = b.dataset.temp; localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
+      b.classList.add('active'); state.units.temp = b.dataset.temp;
+      localStorage.setItem(LS_KEYS.units, JSON.stringify(state.units)); render();
     };
   });
-
-  // Theme toggle
   document.querySelectorAll('#themeSeg button').forEach(b=>{
     b.onclick = ()=>{
       document.querySelectorAll('#themeSeg button').forEach(x=>x.classList.remove('active'));
@@ -263,8 +272,9 @@
       localStorage.setItem(LS_KEYS.theme, state.theme);
     };
   });
+  // === END: UNIT + THEME TOGGLES ===
 
-  // Search & GPS
+  // === START: SEARCH + GPS ===
   $("#go").onclick = ()=> searchAndLoad($("#q").value.trim());
   $("#q").addEventListener('keydown', e=>{
     if(e.key === 'Enter') $("#go").click();
@@ -279,6 +289,7 @@
       load();
     }, _err=> note("Location permission denied."));
   };
+  // === END: SEARCH + GPS ===
 
   function setPlace(p){
     state.place = p; $("#loc").textContent = p.name; updateWindyLink();
@@ -295,6 +306,7 @@
     $("#windyBtn").href = `https://www.windy.com/?${lat.toFixed(3)},${lon.toFixed(3)},${z}`;
   }
 
+  // === START: GEO SUGGEST/LOOKUP ===
   async function suggest(q){
     try{
       const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(q)}&count=5&language=en&format=json`;
@@ -309,7 +321,6 @@
   }
   async function reverseLookup(lat, lon){
     const url = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=en&format=json`;
-    // If reverse lookup fails (e.g., transient CORS), don't crash
     try { const r = await fetch(url); const j = await r.json(); const p = (j.results||[])[0]; return p ? `${p.name}, ${p.country}` : null; }
     catch { return null; }
   }
@@ -324,7 +335,9 @@
       load();
     }catch{ note("Search failed."); }
   }
+  // === END: GEO SUGGEST/LOOKUP ===
 
+  // === START: API URL BUILDER ===
   function buildWeatherURL(lat, lon){
     const hourly = [
       "temperature_2m","apparent_temperature","relative_humidity_2m",
@@ -335,7 +348,9 @@
     return `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}`
       + `&hourly=${hourly}&daily=${daily}&timezone=auto`;
   }
+  // === END: API URL BUILDER ===
 
+  // === START: LOAD + DAYS + HOURS ===
   async function load(){
     const url = buildWeatherURL(state.place.lat, state.place.lon);
     try{
@@ -393,7 +408,9 @@
     if (idx < 0) idx = i*24;
     return idx;
   }
+  // === END: LOAD + DAYS + HOURS ===
 
+  // === START: RENDER ===
   function render(){
     if(!state.data) return;
     const d = state.data, day = state.dayIndex, base = hourBaseIndexForDay(day);
@@ -406,7 +423,7 @@
 
     const wcode = d.daily.weathercode[day];
     $("#weatherDesc").textContent = (window.weatherDesc ? window.weatherDesc(wcode) : "—");
-    $("#weatherIcon").innerHTML = (window.weatherSVG ? window.weatherSVG(wcode) : "");
+    $("#weatherIcon").innerHTML  = (window.weatherSVG  ? window.weatherSVG(wcode)  : "");
     $("#temp").textContent = fmt(toTemp(d.hourly.temperature_2m[H]),0) + "°";
     $("#clouds").textContent = fmt(d.hourly.cloud_cover[H],0) + "%";
 
@@ -422,21 +439,22 @@
 
     $("#precip").textContent = fmt(d.daily.precipitation_sum[day],1) + " mm";
     const pp = d.hourly.precipitation_probability?.[H];
-    $("#pop").textContent = (pp==null? "—" : Math.round(pp) + "%";
+    $("#pop").textContent = (pp==null ? "—" : Math.round(pp) + "%");
 
     $("#feels").textContent = fmt(toTemp(d.hourly.apparent_temperature[H]),0) + "°";
     $("#humidity").textContent = fmt(d.hourly.relative_humidity_2m[H],0) + "%";
     const sr = new Date(d.daily.sunrise[day]); const ss = new Date(d.daily.sunset[day]);
     $("#sunTimes").textContent = timeStr(sr) + "  /  " + timeStr(ss);
     $("#uv").textContent = fmt(d.daily.uv_index_max[day],0);
-    $("#pressure").textContent = fmt(d.hourly.surface_pressure[H]),0) + " hPa";
+    $("#pressure").textContent = fmt(d.hourly.surface_pressure[H],0) + " hPa";
   }
+  // === END: RENDER ===
 
+  // === START: UTILS ===
   function timeStr(dt){ return dt.toLocaleTimeString([], {hour:"2-digit", minute:"2-digit"}); }
   function bearing(deg){ if(deg==null) return ""; const dirs = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
     const ix = Math.round(((deg%360)+360)%360 / 22.5) % 16; return dirs[ix]; }
-
-  // Swipe left/right on grid to change day
+  // Swipe left/right on the grid to change day
   (function enableSwipe(){
     let startX=0, startY=0, swiping=false;
     grid.addEventListener('touchstart', (e)=>{ const t=e.touches[0]; startX=t.clientX; startY=t.clientY; swiping=true; }, {passive:true});
@@ -449,15 +467,15 @@
       }
     }, {passive:true});
   })();
+  // === END: UTILS ===
 
-  // Kick off
+  // Kick off + SW
   setPlace(state.place); updateWindyLink(); load();
-
-  // Register Service Worker (https or localhost)
   if('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
 })();
 </script>
+<!-- === END: APP SCRIPT === -->
 </body>
 </html>
