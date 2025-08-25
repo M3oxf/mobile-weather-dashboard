@@ -1,4 +1,4 @@
-# === START: .github/workflows/purge-cloudflare.yml ===
+# === START: .github/workflows/purge-cloudflare.yml (fixed) ===
 name: Purge Cloudflare cache
 
 on:
@@ -7,24 +7,39 @@ on:
 
 jobs:
   purge:
-    # Only run if both secrets exist (avoids red X before you add them)
-    if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ZONE_ID != '' }}
     runs-on: ubuntu-latest
+
     steps:
-      - name: Purge everything
+      # Check that both secrets exist; store result in a step output
+      - name: Check required secrets
+        id: check
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE:  ${{ secrets.CLOUDFLARE_ZONE_ID }}
         run: |
-          curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
-            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+          if [ -z "$CF_TOKEN" ] || [ -z "$CF_ZONE" ]; then
+            echo "missing=true" >> $GITHUB_OUTPUT
+          else
+            echo "missing=false" >> $GITHUB_OUTPUT
+          fi
+
+      # Only purge when secrets are present
+      - name: Purge everything
+        if: steps.check.outputs.missing == 'false'
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE:  ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          curl -sS -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
+            -H "Authorization: Bearer $CF_TOKEN" \
             -H "Content-Type: application/json" \
             --data '{"purge_everything":true}'
-      - name: Done
-        run: echo "Sent purge request to Cloudflare."
+          echo "Sent purge request to Cloudflare."
 
-  skip:
-    if: ${{ !(secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ZONE_ID != '') }}
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
+      # Friendly message if secrets are missing
+      - name: Skip (secrets not set)
+        if: steps.check.outputs.missing == 'true'
+        run: |
           echo "Cloudflare secrets not set. Skipping purge."
-          echo "Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ZONE_ID in repo settings."
-# === END: .github/workflows/purge-cloudflare.yml ===
+          echo "Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ZONE_ID in repo Settings → Secrets and variables → Actions."
+# === END: .github/workflows/purge-cloudflare.yml (fixed) ===
