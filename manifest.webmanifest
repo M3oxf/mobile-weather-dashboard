@@ -1,7 +1,7 @@
 {
   "//": "=== START: WEB MANIFEST ===",
   "name": "Mobile Weather Dashboard",
-  "short_name": "Weather",
+  "short_name": "Wx",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
