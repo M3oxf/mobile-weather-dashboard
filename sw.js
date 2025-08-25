@@ -1,3 +1,4 @@
+// === START: SERVICE WORKER ===
 // sw.js – offline shell with safe cross-origin fallback
 const CACHE = 'mw-v3';
 const ASSETS = [
@@ -36,3 +37,4 @@ self.addEventListener('fetch', (e) => {
     })
   );
 });
+// === END: SERVICE WORKER ===
