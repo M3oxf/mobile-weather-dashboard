@@ -1,3 +1,4 @@
+<!-- =================== START FULL FILE: index.html (v2) =================== -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,180 +13,136 @@
   <style>
   /* ========= START: base + layout ========= */
   :root{
-    --bg: #0b2230;
-    --panel: #0e2e44;
-    --card: #12354e;
-    --text: #eaf6ff;
-    --muted:#9cc6de;
-    --accent:#2aa9ff;
-    --ok:#24c27a;
-    --warn:#f3c746;
-    --bad:#ff5a6b;
-    --shadow: 0 8px 20px rgba(0,0,0,.25);
-    --radius:16px;
+    --bg:#0b2230; --panel:#0e2e44; --card:#12354e; --text:#eaf6ff; --muted:#9cc6de; --accent:#2aa9ff;
+    --ok:#24c27a; --warn:#f3c746; --bad:#ff5a6b; --shadow:0 8px 20px rgba(0,0,0,.25); --radius:16px;
   }
-  :root.light {
+  :root.light{
     --bg:#f4f7fb; --panel:#0d4d73; --card:#ffffff; --text:#0b2230; --muted:#5b7382; --accent:#0d7dc7;
-    --shadow: 0 8px 16px rgba(13,77,115,.12);
+    --shadow:0 8px 16px rgba(13,77,115,.12);
   }
   *{box-sizing:border-box}
   html,body{height:100%}
   body{
-    margin:0; background:var(--bg); color:var(--text); font:15px/1.35 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
-    -webkit-tap-highlight-color: transparent;
+    margin:0; background:var(--bg); color:var(--text);
+    font:15px/1.35 system-ui,-apple-system,Segoe UI,Roboto,Inter,sans-serif;
+    -webkit-tap-highlight-color:transparent;
   }
-  a{color:inherit}
   .app{max-width:1024px;margin:0 auto;min-height:100%;display:flex;flex-direction:column}
-
-  /* top bar */
-  .topbar{
-    position:sticky; top:0; z-index:5; background:var(--panel); box-shadow:var(--shadow);
-    padding:10px 12px 12px; border-radius:0 0 var(--radius) var(--radius);
-  }
   /* ========= END: base + layout ========= */
 
-
-  /* ========= START: search + buttons (improved look) ========= */
-  .search-row{display:flex; gap:10px; align-items:center}
-  .search{
-    flex:1; display:flex; align-items:center; gap:10px; background:var(--card); border-radius:999px; padding:8px 12px; box-shadow:var(--shadow);
-  }
+  /* ========= START: topbar (two rows) ========= */
+  .topbar{position:sticky;top:0;z-index:5;background:var(--panel);box-shadow:var(--shadow);
+    padding:10px 12px 12px;border-radius:0 0 var(--radius) var(--radius)}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .search{flex:1;display:flex;align-items:center;gap:10px;background:var(--card);border-radius:999px;padding:8px 12px;box-shadow:var(--shadow)}
   .search svg{width:18px;height:18px;opacity:.7;flex:none}
-  .search input{
-    flex:1; border:0; outline:0; background:transparent; color:var(--text); font:16px;
-  }
-  .btn-icon{
-    width:40px;height:40px;border-radius:999px;border:0;cursor:pointer;background:var(--card);color:var(--text);
-    display:inline-grid; place-items:center; box-shadow:var(--shadow);
-  }
-  .btn-icon:hover{filter:brightness(1.05)}
-  .btn-icon:active{transform:scale(.98)}
-  .seg{
-    display:flex; gap:6px; background:var(--card); border-radius:999px; padding:4px; box-shadow:var(--shadow)
-  }
-  .seg button{
-    min-width:46px; padding:8px 10px;border-radius:999px;border:0;background:transparent;color:var(--text);cursor:pointer;font-weight:600;
-  }
-  .seg button.active{background:var(--accent); color:white}
-  .tog-dark{margin-left:auto}
-  /* ========= END: search + buttons ========= */
+  .search input{flex:1;border:0;outline:0;background:transparent;color:var(--text);font:16px}
+  .btn-icon{width:40px;height:40px;border-radius:999px;border:0;cursor:pointer;background:var(--card);color:var(--text);
+    display:inline-grid;place-items:center;box-shadow:var(--shadow)}
+  .btn-icon:hover{filter:brightness(1.05)} .btn-icon:active{transform:scale(.98)}
+  .seg{display:flex;gap:6px;background:var(--card);border-radius:999px;padding:4px;box-shadow:var(--shadow)}
+  .seg button{min-width:46px;padding:8px 10px;border-radius:999px;border:0;background:transparent;color:var(--text);cursor:pointer;font-weight:700}
+  .seg button.active{background:var(--accent);color:#fff}
+  .row.units{margin-top:8px;justify-content:space-between}
+  .row.units > div{display:flex;gap:10px;flex-wrap:wrap}
+  /* ========= END: topbar ========= */
 
+  /* ========= START: day tabs ========= */
+  .days{display:flex;gap:8px;padding:10px 12px}
+  .days button{padding:8px 10px;border-radius:999px;border:0;background:var(--card);color:var(--text);cursor:pointer;font-weight:700}
+  .days button.active{background:var(--accent);color:#fff}
+  /* ========= END: day tabs ========= */
 
-  /* ========= START: tabs (days) ========= */
-  .days{display:flex; gap:8px; padding:10px 12px}
-  .days button{
-    padding:8px 10px; border-radius:999px; border:0; background:var(--card); color:var(--text); cursor:pointer; font-weight:600;
-  }
-  .days button.active{background:var(--accent); color:#fff}
-  /* ========= END: tabs ========= */
+  /* ========= START: grid/cards ========= */
+  .grid{display:grid;gap:10px;padding:0 12px 10px}
+  @media(min-width:520px){ .grid{grid-template-columns:repeat(2,1fr)} }
+  @media(min-width:860px){ .grid{grid-template-columns:repeat(3,1fr)} }
+  .card{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--shadow);min-height:92px;display:flex;flex-direction:column;justify-content:space-between}
+  .card h4{margin:0 0 6px;font-size:13px;color:var(--muted);font-weight:800;letter-spacing:.02em}
+  .card .val{font-size:22px;font-weight:800}
+  /* ========= END: grid/cards ========= */
 
+  /* ========= START: compass ========= */
+  .compass{width:110px;height:110px}
+  .compass .ring{stroke:rgba(255,255,255,.18)}
+  .compass text{fill:var(--muted);font-weight:800;font-size:10px}
+  .compass .ticks{stroke:rgba(255,255,255,.35);stroke-width:1}
+  .compass .tick-major{stroke-width:1.6}
+  .compass .needle{fill:var(--accent)}
+  /* ========= END: compass ========= */
 
-  /* ========= START: grid cards ========= */
-  .grid{display:grid; gap:10px; padding:0 12px 10px}
-  @media(min-width:640px){ .grid{grid-template-columns:repeat(3,1fr)} }
-  @media(min-width:860px){ .grid{grid-template-columns:repeat(4,1fr)} }
-  .card{
-    background:var(--card); border-radius:14px; padding:14px; box-shadow:var(--shadow); min-height:92px;
-    display:flex; flex-direction:column; justify-content:space-between;
-  }
-  .card h4{margin:0 0 6px; font-size:13px; color:var(--muted); font-weight:700; letter-spacing:.02em}
-  .card .val{font-size:22px; font-weight:800}
-  .dial{width:84px;height:84px;border-radius:50%; border:3px solid rgba(255,255,255,.15); display:grid; place-items:center}
-  .dial .needle{width:2px;height:34px;background:var(--accent); transform-origin:bottom center; border-radius:2px}
-  /* ========= END: grid cards ========= */
-
-
-  /* ========= START: Safe-to-fly banner ========= */
-  .s2f{
-    display:flex; align-items:center; gap:12px; padding:14px; border-radius:14px; box-shadow:var(--shadow); background:var(--card);
-  }
+  /* ========= START: safe-to-fly ========= */
+  .s2f{display:flex;align-items:center;gap:12px;padding:14px;border-radius:14px;box-shadow:var(--shadow);background:var(--card);margin:0 12px 10px}
   .s2f .dot{width:14px;height:14px;border-radius:999px}
-  .s2f.ok  .dot{background:var(--ok)}
-  .s2f.warn .dot{background:var(--warn)}
-  .s2f.bad .dot{background:var(--bad)}
-  .s2f b{font-size:16px}
-  .s2f ul{margin:6px 0 0 0; padding-left:18px; color:var(--muted)}
-  /* ========= END: Safe-to-fly banner ========= */
+  .s2f.ok .dot{background:var(--ok)} .s2f.warn .dot{background:var(--warn)} .s2f.bad .dot{background:var(--bad)}
+  .s2f b{font-size:16px} .s2f ul{margin:6px 0 0 0;padding-left:18px;color:var(--muted)}
+  /* ========= END: safe-to-fly ========= */
 
+  /* ========= START: hours ========= */
+  .hours{display:flex;flex-wrap:wrap;gap:8px;padding:10px 12px 18px}
+  .hour{width:44px;height:36px;display:grid;place-items:center;border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;user-select:none;box-shadow:var(--shadow);font-weight:800}
+  .hour.active{background:var(--accent);color:#fff}
+  /* ========= END: hours ========= */
 
-  /* ========= START: hours selector (wrap to 2 rows on small) ========= */
-  .hours{display:flex; flex-wrap:wrap; gap:8px; padding:10px 12px 18px}
-  .hour{
-    width:44px; height:36px; display:grid; place-items:center; border-radius:10px; background:var(--card); color:var(--text); cursor:pointer;
-    user-select:none; box-shadow:var(--shadow); font-weight:700;
-  }
-  .hour.active{background:var(--accent); color:#fff}
-  /* ========= END: hours selector ========= */
-
-  .footnote{opacity:.6; font-size:12px; padding:0 12px 18px}
+  .footnote{opacity:.6;font-size:12px;padding:0 12px 18px}
   </style>
 </head>
 <body>
   <div class="app">
 
-    <!-- ======== START: TOP BAR ======== -->
+    <!-- ======== START: TOP BAR (two rows) ======== -->
     <div class="topbar">
-      <div class="search-row">
-        <div class="search" style="flex:1">
-          <!-- search icon -->
+      <div class="row">
+        <div class="search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
           <input id="q" placeholder="Search location..." autocomplete="off" />
         </div>
-
-        <!-- prettier GPS + Clear buttons -->
         <button id="btnGPS" class="btn-icon" title="Use GPS">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"></circle>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
+            <circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>
           </svg>
         </button>
         <button id="btnSearch" class="btn-icon" title="Search">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="7"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
         </button>
+      </div>
 
-        <!-- unit toggles -->
-        <div class="seg" id="uSpeed" title="Speed units">
-          <button data-u="kmh" class="active">km/h</button>
-          <button data-u="mph">mph</button>
+      <div class="row units">
+        <div>
+          <div class="seg" id="uSpeed" title="Speed units">
+            <button data-u="kmh" class="active">km/h</button>
+            <button data-u="mph">mph</button>
+          </div>
+          <div class="seg" id="uTemp" title="Temperature units">
+            <button data-u="C" class="active">°C</button>
+            <button data-u="F">°F</button>
+          </div>
         </div>
-        <div class="seg" id="uTemp" title="Temperature units">
-          <button data-u="C" class="active">°C</button>
-          <button data-u="F">°F</button>
-        </div>
-
-        <!-- dark mode toggle -->
-        <button id="btnDark" class="btn-icon tog-dark" title="Toggle dark mode">🌙</button>
+        <button id="btnDark" class="btn-icon" title="Toggle dark mode">🌙</button>
       </div>
     </div>
     <!-- ======== END: TOP BAR ======== -->
 
-    <!-- ======== START: CURRENT LOCATION / DAY TABS ======== -->
+    <!-- ======== START: DAYS ======== -->
     <div class="days" id="days"></div>
-    <!-- ======== END: CURRENT LOCATION / DAY TABS ======== -->
+    <!-- ======== END: DAYS ======== -->
 
-    <!-- ======== START: SAFE-TO-FLY BANNER ======== -->
-    <div id="s2f" class="s2f ok" style="margin:0 12px 10px">
+    <!-- ======== START: SAFE-TO-FLY ======== -->
+    <div id="s2f" class="s2f ok">
       <span class="dot"></span>
-      <div>
-        <b id="s2fTitle">Safe to fly</b>
-        <ul id="s2fNotes"></ul>
-      </div>
+      <div><b id="s2fTitle">Safe to fly</b><ul id="s2fNotes"></ul></div>
     </div>
-    <!-- ======== END: SAFE-TO-FLY BANNER ======== -->
+    <!-- ======== END: SAFE-TO-FLY ======== -->
 
     <!-- ======== START: GRID ======== -->
-    <div class="grid" id="grid">
-      <!-- Cards will be filled by JS -->
-    </div>
+    <div class="grid" id="grid"></div>
     <!-- ======== END: GRID ======== -->
 
-    <!-- ======== START: HOURS (wraps on small) ======== -->
+    <!-- ======== START: HOURS ======== -->
     <div class="hours" id="hours"></div>
     <!-- ======== END: HOURS ======== -->
 
@@ -193,313 +150,274 @@
   </div>
 
   <script>
-  // ========= START: tiny helpers =========
-  const $ = sel => document.querySelector(sel);
-  const el = (tag, cls) => Object.assign(document.createElement(tag), { className: cls||'' });
+  // ========= START: helpers =========
+  const $ = s => document.querySelector(s);
+  const el = (t,c) => Object.assign(document.createElement(t),{className:c||''});
   const kmhToMph = v => v*0.621371;
   const cToF = v => (v*9/5)+32;
   const clamp = (v,a,b)=>Math.min(b,Math.max(a,v));
   const vibrate = ms => { if (navigator.vibrate) navigator.vibrate(ms); };
-  // ========= END: tiny helpers =========
+  // ========= END: helpers =========
 
   // ========= START: state =========
   const state = {
-    lat: 51.7522, lon: -1.2577, // default Oxford
-    place: "Oxford, United Kingdom",
-    dayIdx: 0,
-    hourIdx: new Date().getHours(),
-    uSpeed: localStorage.getItem('uSpeed') || 'kmh',
-    uTemp: localStorage.getItem('uTemp') || 'C',
-    dark: localStorage.getItem('dark') || 'dark', // 'dark' or 'light'
-    data: null
+    lat:51.7522, lon:-1.2577, place:"Oxford, United Kingdom",
+    dayIdx:0, hourIdx:new Date().getHours(),
+    uSpeed:localStorage.getItem('uSpeed')||'kmh',
+    uTemp:localStorage.getItem('uTemp')||'C',
+    dark:localStorage.getItem('dark')||'dark',
+    data:null,
   };
-  if (state.dark === 'light') document.documentElement.classList.add('light');
+  if (state.dark==='light') document.documentElement.classList.add('light');
   // ========= END: state =========
 
-
-  // ========= START: build UI skeleton (cards, hours, days) =========
+  // ========= START: UI skeleton =========
   const cardsSpec = [
-    {id:'weather', label:'Weather', fmt: v => v },
-    {id:'cloud', label:'Cloud cover', fmt: v => v + '%' },
-    {id:'visibility', label:'Visibility', fmt: v => (v>=10 ? '10+ km' : v.toFixed(1)+' km') },
-    {id:'wind', label:'Wind', fmt: v => v.toFixed(0) + ' ' + (state.uSpeed==='mph'?'mph':'km/h') },
-    {id:'gust', label:'Gust (hour)', fmt: v => v.toFixed(0) + ' ' + (state.uSpeed==='mph'?'mph':'km/h') },
-    {id:'wdir', label:'Wind direction', dial:true },
-    {id:'precip', label:'Precipitation', fmt: v => v.toFixed(1)+' mm' },
-    {id:'pop', label:'Precip probability', fmt: v => v + '%' },
-    {id:'feels', label:'Feels like', fmt: v => (state.uTemp==='F'?cToF(v):v).toFixed(0) + '°' },
-    {id:'humidity', label:'Humidity', fmt: v => v + '%' },
-    {id:'sun', label:'Sunrise / Sunset', fmt: v => v },
-    {id:'uv', label:'UV index', fmt: v => v.toFixed(0) },
-    {id:'pressure', label:'Pressure', fmt: v => v.toFixed(0)+' hPa' }
+    {id:'weather', label:'Weather'},
+    {id:'cloud', label:'Cloud cover'},
+    {id:'visibility', label:'Visibility'},
+    {id:'wind10', label:'Wind 10 m'},
+    {id:'gust', label:'Gust (hour)'},
+    {id:'wdir', label:'Wind direction', compass:true},
+    {id:'wind80', label:'Wind 80 m'},
+    {id:'wind120', label:'Wind 120 m'},
+    {id:'precip', label:'Precipitation'},
+    {id:'pop', label:'Precip probability'},
+    {id:'feels', label:'Feels like'},
+    {id:'humidity', label:'Humidity'},
+    {id:'sun', label:'Sunrise / Sunset'},
+    {id:'uv', label:'UV index'},
+    {id:'pressure', label:'Pressure'}
   ];
 
   function buildGrid(){
     const g = $('#grid'); g.innerHTML='';
-    for(const c of cardsSpec){
+    for (const c of cardsSpec){
       const card = el('div','card'); card.id = 'card-'+c.id;
       const h = el('h4'); h.textContent = c.label; card.appendChild(h);
-      if (c.dial){
-        const dial = el('div','dial'); const needle = el('div','needle'); dial.appendChild(needle); card.appendChild(dial);
-      }else{
+      if (c.compass){
+        card.appendChild(buildCompassSVG());
+      } else {
         const v = el('div','val'); v.textContent='—'; card.appendChild(v);
       }
       g.appendChild(card);
     }
   }
 
+  function buildCompassSVG(){
+    const wrap = el('div'); wrap.innerHTML = `
+      <svg class="compass" viewBox="0 0 120 120" aria-label="wind direction">
+        <defs>
+          <filter id="d" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity="0.35"/>
+          </filter>
+        </defs>
+        <circle class="ring" cx="60" cy="60" r="48" fill="none" stroke-width="3"/>
+        <g class="ticks">
+          ${Array.from({length:24}).map((_,i)=>{
+            const a=i*15, r1=48, r2=(i%6===0)?40:44, cls=(i%6===0)?'tick-major':'';
+            const x1=60+r1*Math.sin(a*Math.PI/180), y1=60-r1*Math.cos(a*Math.PI/180);
+            const x2=60+r2*Math.sin(a*Math.PI/180), y2=60-r2*Math.cos(a*Math.PI/180);
+            return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="${cls}"/>`;
+          }).join('')}
+        </g>
+        <g text-anchor="middle" dominant-baseline="middle">
+          <text x="60" y="14">N</text>
+          <text x="106" y="60">E</text>
+          <text x="60" y="108">S</text>
+          <text x="14" y="60">W</text>
+        </g>
+        <g id="needle" class="needle" filter="url(#d)" transform="rotate(0,60,60)">
+          <polygon points="60,15 66,60 60,66 54,60"/>
+          <circle cx="60" cy="60" r="5" fill="currentColor" opacity=".8"/>
+        </g>
+      </svg>`;
+    return wrap.firstElementChild;
+  }
+
   function buildHours(){
     const wrap = $('#hours'); wrap.innerHTML='';
-    for(let h=0; h<24; h++){
+    for(let h=0;h<24;h++){
       const b = el('div','hour'); b.textContent=String(h).padStart(2,'0');
       if (h===state.hourIdx) b.classList.add('active');
-      b.onclick = () => { state.hourIdx=h; setActiveHour(); render(); vibrate(12); };
-      b.oncontextmenu = (e)=>{ e.preventDefault(); state.hourIdx=new Date().getHours(); setActiveHour(); render(); };
+      b.onclick=()=>{ state.hourIdx=h; setActiveHour(); render(); vibrate(12); };
+      b.oncontextmenu=(e)=>{ e.preventDefault(); state.hourIdx=new Date().getHours(); setActiveHour(); render(); };
       wrap.appendChild(b);
     }
   }
-  function setActiveHour(){
-    $('#hours').querySelectorAll('.hour').forEach((n,i)=>n.classList.toggle('active',i===state.hourIdx));
-  }
+  function setActiveHour(){ $('#hours').querySelectorAll('.hour').forEach((n,i)=>n.classList.toggle('active',i===state.hourIdx)); }
 
   function buildDays(){
-    const wrap = $('#days'); wrap.innerHTML='';
-    const dt = state.data?.daily?.time?.map(t=>new Date(t)) || [];
-    const names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    const wrap=$('#days'); wrap.innerHTML='';
+    const dt=state.data?.daily?.time?.map(t=>new Date(t))||[];
+    const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     for(let i=0;i<Math.min(7,dt.length);i++){
-      const d = dt[i];
-      const b = el('button'); b.textContent = (i===0?'Today':names[d.getDay()]);
+      const b=el('button'); b.textContent=(i===0?'Today':names[dt[i].getDay()]);
       if (i===state.dayIdx) b.classList.add('active');
-      b.onclick = ()=>{ state.dayIdx=i; buildDays(); render(); };
+      b.onclick=()=>{ state.dayIdx=i; buildDays(); render(); };
       wrap.appendChild(b);
     }
   }
-  // ========= END: build UI skeleton =========
+  // ========= END: UI skeleton =========
 
-
-  // ========= START: data fetch =========
+  // ========= START: data =========
   async function geocode(q){
-    const url = `https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&format=json&name=${encodeURIComponent(q)}`;
-    const r = await fetch(url); if(!r.ok) throw new Error('geocode failed');
-    const j = await r.json();
+    const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?count=1&language=en&format=json&name=${encodeURIComponent(q)}`);
+    if(!r.ok) throw new Error('geocode failed'); const j=await r.json();
     if(!j.results?.length) throw new Error('location not found');
-    const { latitude:lat, longitude:lon, name, country, admin1 } = j.results[0];
-    return { lat, lon, place: [name, admin1, country].filter(Boolean).join(', ') };
+    const {latitude:lat,longitude:lon,name,country,admin1}=j.results[0];
+    return {lat,lon,place:[name,admin1,country].filter(Boolean).join(', ')};
   }
-
   async function getWeather(lat,lon){
-    const params = new URLSearchParams({
-      latitude: lat, longitude: lon, timezone: 'auto',
-      hourly: [
-        'temperature_2m','apparent_temperature','relative_humidity_2m',
-        'precipitation_probability','rain','cloud_cover',
-        'wind_speed_10m','wind_gusts_10m','wind_direction_10m',
-        'pressure_msl','visibility','uv_index'
-      ].join(','),
-      daily: ['sunrise','sunset','uv_index_max'].join(',')
-    });
-    const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-    const r = await fetch(url); if(!r.ok) throw new Error('forecast failed');
+    const hourly=[
+      'temperature_2m','apparent_temperature','relative_humidity_2m',
+      'precipitation_probability','rain','cloud_cover',
+      'visibility','uv_index','pressure_msl',
+      'wind_speed_10m','wind_gusts_10m','wind_direction_10m',
+      'wind_speed_80m','wind_speed_120m'
+    ].join(',');
+    const daily=['sunrise','sunset','uv_index_max'].join(',');
+    const u=new URLSearchParams({latitude:lat,longitude:lon,timezone:'auto',hourly,daily});
+    const r=await fetch(`https://api.open-meteo.com/v1/forecast?${u}`); if(!r.ok) throw new Error('forecast failed');
     return await r.json();
   }
-  // ========= END: data fetch =========
+  // ========= END: data =========
 
-
-  // ========= START: safety logic =========
-  // Heuristics for small drones (tweak if you want)
+  // ========= START: safety =========
   function evaluateSafety(h){
-    const H = state.data.hourly;
-    const idx = state.dayIdx*24 + h;
-
-    // Base values (km/h, °C, km)
-    const wind = H.wind_speed_10m[idx];
-    const gust = H.wind_gusts_10m[idx];
-    const pop  = H.precipitation_probability[idx] ?? 0;
-    const visKm = Math.min(10, (H.visibility[idx]||0) / 1000); // cap at 10+ km
-    const temp = H.temperature_2m[idx];
-
-    let score = 100, notes=[];
-
-    // Wind
-    if (gust >= 60) { score -= 70; notes.push(`Very strong gusts ${fmtSpeed(gust)}`); }
-    else if (gust >= 45) { score -= 40; notes.push(`Gusty ${fmtSpeed(gust)}`); }
-
-    if (wind >= 40) { score -= 40; notes.push(`Strong wind ${fmtSpeed(wind)}`); }
-    else if (wind >= 28) { score -= 20; notes.push(`Moderate wind ${fmtSpeed(wind)}`); }
-
-    // Precipitation probability
-    if (pop >= 60){ score -= 50; notes.push(`High precip prob ${pop}%`); }
-    else if (pop >= 30){ score -= 20; notes.push(`Chance of precip ${pop}%`); }
-
-    // Visibility
-    if (visKm < 5){ score -= 40; notes.push(`Low visibility ${visKm.toFixed(1)} km`); }
-    else if (visKm < 10){ score -= 15; notes.push(`Visibility ${visKm.toFixed(1)} km`); }
-
-    // Temperature extremes (battery/icing risk)
-    if (temp <= -5){ score -= 25; notes.push(`Very cold ${fmtTemp(temp)}`); }
-    else if (temp <= 0){ score -= 15; notes.push(`Cold ${fmtTemp(temp)}`); }
-    if (temp >= 35){ score -= 25; notes.push(`Very hot ${fmtTemp(temp)}`); }
-
-    // Outcome
-    let status='ok';
-    if (score < 50) status='bad';
-    else if (score < 75) status='warn';
-    return { status, notes };
+    const H=state.data.hourly; const idx=state.dayIdx*24+h;
+    const wind=H.wind_speed_10m[idx]; const gust=H.wind_gusts_10m[idx];
+    const pop=H.precipitation_probability[idx]??0;
+    const visKm=Math.min(10,(H.visibility[idx]||0)/1000);
+    const temp=H.temperature_2m[idx];
+    let score=100, notes=[];
+    if (gust>=60){score-=70;notes.push(`Very strong gusts ${fmtSpeed(gust)}`);}
+    else if (gust>=45){score-=40;notes.push(`Gusty ${fmtSpeed(gust)}`);}
+    if (wind>=40){score-=40;notes.push(`Strong wind ${fmtSpeed(wind)}`);}
+    else if (wind>=28){score-=20;notes.push(`Moderate wind ${fmtSpeed(wind)}`);}
+    if (pop>=60){score-=50;notes.push(`High precip prob ${pop}%`);}
+    else if (pop>=30){score-=20;notes.push(`Chance of precip ${pop}%`);}
+    if (visKm<5){score-=40;notes.push(`Low visibility ${visKm.toFixed(1)} km`);}
+    else if (visKm<10){score-=15;notes.push(`Visibility ${visKm.toFixed(1)} km`);}
+    if (temp<=-5){score-=25;notes.push(`Very cold ${fmtTemp(temp)}`);}
+    else if (temp<=0){score-=15;notes.push(`Cold ${fmtTemp(temp)}`);}
+    if (temp>=35){score-=25;notes.push(`Very hot ${fmtTemp(temp)}`);}
+    let status='ok'; if (score<50) status='bad'; else if (score<75) status='warn';
+    return {status,notes};
   }
-  // ========= END: safety logic =========
+  // ========= END: safety =========
 
-
-  // ========= START: formatting helpers =========
-  function fmtSpeed(vKmh){
-    const v = (state.uSpeed==='mph') ? kmhToMph(vKmh) : vKmh;
-    return `${v.toFixed(0)} ${state.uSpeed}`;
-  }
-  function fmtTemp(c){
-    return (state.uTemp==='F' ? `${cToF(c).toFixed(0)}°F` : `${c.toFixed(0)}°C`);
-  }
-  // ========= END: formatting helpers =========
-
+  // ========= START: formatting =========
+  function fmtSpeed(vKmh){const v=(state.uSpeed==='mph')?kmhToMph(vKmh):vKmh;return `${v.toFixed(0)} ${state.uSpeed}`;}
+  function fmtTemp(c){return (state.uTemp==='F'?`${cToF(c).toFixed(0)}°F`:`${c.toFixed(0)}°C`);}
+  // ========= END: formatting =========
 
   // ========= START: render =========
   function render(){
     if (!state.data) return;
-
-    // days / hours present
     buildDays(); setActiveHour();
 
-    const H = state.data.hourly;
-    const D = state.data.daily;
-    const i = state.dayIdx*24 + state.hourIdx;
+    const H=state.data.hourly, D=state.data.daily;
+    const i=state.dayIdx*24+state.hourIdx;
 
-    // Safe-to-fly banner
-    const s = evaluateSafety(state.hourIdx);
-    const s2f = $('#s2f');
+    // Safe to fly
+    const s=evaluateSafety(state.hourIdx); const s2f=$('#s2f');
     s2f.classList.remove('ok','warn','bad'); s2f.classList.add(s.status);
-    $('#s2fTitle').textContent = s.status==='ok' ? 'Safe to fly' : s.status==='warn' ? 'Caution' : 'No-fly';
-    $('#s2fNotes').innerHTML = s.notes.slice(0,4).map(n=>`<li>${n}</li>`).join('') || '<li>All good.</li>';
+    $('#s2fTitle').textContent=s.status==='ok'?'Safe to fly':s.status==='warn'?'Caution':'No-fly';
+    $('#s2fNotes').innerHTML=s.notes.slice(0,4).map(n=>`<li>${n}</li>`).join('')||'<li>All good.</li>';
 
-    // Weather summary (super simple icon-less)
-    $('#card-weather .val')?.replaceWith(Object.assign(el('div','val'),{textContent: `${fmtTemp(H.temperature_2m[i])}`}));
+    // Weather cards
+    $('#card-weather .val')?.replaceWith(Object.assign(el('div','val'),{textContent:fmtTemp(H.temperature_2m[i])}));
+    $('#card-cloud .val').textContent=(H.cloud_cover[i]??0)+'%';
 
-    // Cloud cover
-    $('#card-cloud .val').textContent = (H.cloud_cover[i] ?? 0) + '%';
+    const visKm=clamp((H.visibility[i]||0)/1000,0,10);
+    $('#card-visibility .val').textContent=visKm>=10?'10+ km':visKm.toFixed(1)+' km';
 
-    // Visibility km (cap display at 10+)
-    const visKm = clamp((H.visibility[i]||0)/1000, 0, 10);
-    $('#card-visibility .val').textContent = visKm>=10 ? '10+ km' : visKm.toFixed(1) + ' km';
+    const w10=H.wind_speed_10m[i]||0, w80=H.wind_speed_80m?.[i], w120=H.wind_speed_120m?.[i];
+    $('#card-wind10 .val').textContent=fmtSpeed(w10);
+    $('#card-wind80 .val').textContent=(w80==null?'—':fmtSpeed(w80));
+    $('#card-wind120 .val').textContent=(w120==null?'—':fmtSpeed(w120));
 
-    // Wind / gust / dir
-    const wind = H.wind_speed_10m[i] || 0;
-    const gust = H.wind_gusts_10m[i] || 0;
-    $('#card-wind .val').textContent = fmtSpeed(wind);
-    $('#card-gust .val').textContent = fmtSpeed(gust);
-    const dir = H.wind_direction_10m[i] || 0;
-    const needle = $('#card-wdir .needle'); if (needle) needle.style.transform = `rotate(${dir}deg)`;
+    const gust=H.wind_gusts_10m[i]||0;
+    $('#card-gust .val').textContent=fmtSpeed(gust);
 
-    // Precip + POP
-    $('#card-precip .val').textContent = ((H.rain[i]||0)).toFixed(1) + ' mm';
-    $('#card-pop .val').textContent = (H.precipitation_probability[i] ?? 0) + '%';
+    const dir=H.wind_direction_10m[i]||0;
+    const needle=$('#card-wdir #needle'); if(needle) needle.setAttribute('transform',`rotate(${dir},60,60)`);
 
-    // Feels like
-    const feels = H.apparent_temperature[i] ?? H.temperature_2m[i];
-    $('#card-feels .val').textContent = fmtTemp(feels);
+    $('#card-precip .val').textContent=((H.rain[i]||0)).toFixed(1)+' mm';
+    $('#card-pop .val').textContent=(H.precipitation_probability[i]??0)+'%';
 
-    // Humidity
-    $('#card-humidity .val').textContent = (H.relative_humidity_2m[i] ?? 0) + '%';
+    const feels=H.apparent_temperature[i]??H.temperature_2m[i];
+    $('#card-feels .val').textContent=fmtTemp(feels);
 
-    // Pressure
-    $('#card-pressure .val').textContent = (H.pressure_msl[i] ?? 0).toFixed(0) + ' hPa';
+    $('#card-humidity .val').textContent=(H.relative_humidity_2m[i]??0)+'%';
+    $('#card-pressure .val').textContent=(H.pressure_msl[i]??0).toFixed(0)+' hPa';
+    $('#card-uv .val').textContent=(H.uv_index[i]??(D.uv_index_max[state.dayIdx]||0)).toFixed(0);
 
-    // UV
-    $('#card-uv .val').textContent = (H.uv_index[i] ?? (D.uv_index_max[state.dayIdx]||0)).toFixed(0);
+    const sr=new Date(D.sunrise[state.dayIdx]), ss=new Date(D.sunset[state.dayIdx]);
+    const pad=n=>String(n).padStart(2,'0'); const hhmm=d=>`${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    $('#card-sun .val').textContent=`${hhmm(sr)} / ${hhmm(ss)}`;
 
-    // Sun
-    const sr = new Date(D.sunrise[state.dayIdx]); const ss = new Date(D.sunset[state.dayIdx]);
-    const pad = n=>String(n).padStart(2,'0');
-    const hhmm = d => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    $('#card-sun .val').textContent = `${hhmm(sr)} / ${hhmm(ss)}`;
-
-    // Save prefs
-    localStorage.setItem('uSpeed', state.uSpeed);
-    localStorage.setItem('uTemp', state.uTemp);
-    localStorage.setItem('dark', document.documentElement.classList.contains('light') ? 'light' : 'dark');
-    localStorage.setItem('lastPlace', JSON.stringify({lat:state.lat,lon:state.lon,place:state.place}));
+    // persist
+    localStorage.setItem('uSpeed',state.uSpeed);
+    localStorage.setItem('uTemp',state.uTemp);
+    localStorage.setItem('dark',document.documentElement.classList.contains('light')?'light':'dark');
+    localStorage.setItem('lastPlace',JSON.stringify({lat:state.lat,lon:state.lon,place:state.place}));
   }
   // ========= END: render =========
 
-
-  // ========= START: actions (search, gps, units, dark) =========
+  // ========= START: actions =========
   async function doSearch(){
-    const q = $('#q').value.trim();
-    if (!q) return;
-    try{
-      const g = await geocode(q);
-      state.lat=g.lat; state.lon=g.lon; state.place=g.place;
-      await loadAndRender();
-    }catch(e){ alert('Location not found'); }
+    const q=$('#q').value.trim(); if(!q) return;
+    try{const g=await geocode(q); Object.assign(state,{lat:g.lat,lon:g.lon,place:g.place}); await loadAndRender();}
+    catch{ alert('Location not found'); }
   }
-
   async function doGPS(){
-    if (!navigator.geolocation) return alert('GPS not available');
-    navigator.geolocation.getCurrentPosition(async pos=>{
-      state.lat=pos.coords.latitude; state.lon=pos.coords.longitude; state.place='Current location';
+    if(!navigator.geolocation) return alert('GPS not available');
+    navigator.geolocation.getCurrentPosition(async p=>{
+      Object.assign(state,{lat:p.coords.latitude,lon:p.coords.longitude,place:'Current location'});
       await loadAndRender();
-    }, err=> alert('GPS failed'));
+    },()=>alert('GPS failed'));
   }
 
-  $('#btnSearch').onclick = doSearch;
-  $('#q').addEventListener('keydown', e=>{ if(e.key==='Enter') doSearch(); });
-  $('#btnGPS').onclick = ()=>{ vibrate(12); doGPS(); };
+  $('#btnSearch').onclick=doSearch;
+  $('#q').addEventListener('keydown',e=>{ if(e.key==='Enter') doSearch(); });
+  $('#btnGPS').onclick=()=>{ vibrate(12); doGPS(); };
 
-  $('#uSpeed').addEventListener('click', e=>{
-    const b = e.target.closest('button'); if(!b)return;
-    state.uSpeed=b.dataset.u;
-    [...$('#uSpeed').children].forEach(n=>n.classList.toggle('active',n===b));
-    render();
+  $('#uSpeed').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    state.uSpeed=b.dataset.u; [...$('#uSpeed').children].forEach(n=>n.classList.toggle('active',n===b)); render();
   });
-  $('#uTemp').addEventListener('click', e=>{
-    const b = e.target.closest('button'); if(!b)return;
-    state.uTemp=b.dataset.u;
-    [...$('#uTemp').children].forEach(n=>n.classList.toggle('active',n===b));
-    render();
+  $('#uTemp').addEventListener('click',e=>{
+    const b=e.target.closest('button'); if(!b) return;
+    state.uTemp=b.dataset.u; [...$('#uTemp').children].forEach(n=>n.classList.toggle('active',n===b)); render();
   });
-  $('#btnDark').onclick = ()=>{
-    const light = document.documentElement.classList.toggle('light');
-    $('#btnDark').textContent = light ? '☀️' : '🌙';
-    render();
+  $('#btnDark').onclick=()=>{
+    const light=document.documentElement.classList.toggle('light');
+    $('#btnDark').textContent=light?'☀️':'🌙'; render();
   };
   // ========= END: actions =========
-
 
   // ========= START: load & boot =========
   async function loadAndRender(){
     buildGrid(); buildHours();
-    try{
-      state.data = await getWeather(state.lat, state.lon);
-      render();
-    }catch(e){
-      console.error(e);
-      alert('Failed to load weather data.');
-    }
+    try{ state.data=await getWeather(state.lat,state.lon); render(); }
+    catch(e){ console.error(e); alert('Failed to load weather data.'); }
   }
-
-  // Restore last location/units
   (function boot(){
-    const last = localStorage.getItem('lastPlace');
-    if (last){ try{ const j=JSON.parse(last); Object.assign(state,{lat:j.lat,lon:j.lon,place:j.place}); }catch{} }
-    [...$('#uSpeed').children].forEach(n=>n.classList.toggle('active', n.dataset.u===state.uSpeed));
-    [...$('#uTemp').children].forEach(n=>n.classList.toggle('active', n.dataset.u===state.uTemp));
-    $('#btnDark').textContent = document.documentElement.classList.contains('light') ? '☀️' : '🌙';
+    const last=localStorage.getItem('lastPlace');
+    if(last){ try{Object.assign(state,JSON.parse(last));}catch{} }
+    [...$('#uSpeed').children].forEach(n=>n.classList.toggle('active',n.dataset.u===state.uSpeed));
+    [...$('#uTemp').children].forEach(n=>n.classList.toggle('active',n.dataset.u===state.uTemp));
+    $('#btnDark').textContent=document.documentElement.classList.contains('light')?'☀️':'🌙';
     loadAndRender();
   })();
   // ========= END: load & boot =========
 
-
-  // ========= START: PWA registration =========
-  if ('serviceWorker' in navigator){
-    window.addEventListener('load', ()=>navigator.serviceWorker.register('./sw.js'));
-  }
-  // ========= END: PWA registration =========
+  // ========= START: PWA =========
+  if('serviceWorker' in navigator){ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js')); }
+  // ========= END: PWA =========
   </script>
 </body>
 </html>
+<!-- =================== END FULL FILE: index.html (v2) =================== -->
