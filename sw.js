@@ -1,6 +1,6 @@
 // === START: SERVICE WORKER ===
 // sw.js – offline shell with safe cross-origin fallback
-const CACHE = 'mw-v5'; // bump this when deploying new UI
+const CACHE = 'mw-v6'; // bump this when deploying new UI
 const ASSETS = [
   './',
   './index.html',
